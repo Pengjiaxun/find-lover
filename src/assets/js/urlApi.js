@@ -2,9 +2,9 @@ function getUrlApi() {
     let urlApi = {}
     let url = window.location.href
     console.log(url)
-        // window.sessionStorage.ticket = "0|RHPcpLjEbl6N6o647sZ1F/mBMuR7hOjwrI6YvnitkBQ="
-    window.sessionStorage.ticket = "0|KE442m0QHufK+aLRZb2XNP67Th6rmw0II51LxXvLHd0="
-    window.sessionStorage.n = '123'
+    // window.sessionStorage.ticket = "0|RHPcpLjEbl6N6o647sZ1F/mBMuR7hOjwrI6YvnitkBQ="
+    // window.sessionStorage.ticket = "0|KE442m0QHufK+aLRZb2XNP67Th6rmw0II51LxXvLHd0="
+    // window.sessionStorage.n = '123'
     window.sessionStorage.commId = '87206'
     window.sessionStorage.detailId = '88010'
     if (url.indexOf('8080') > -1) {
