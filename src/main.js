@@ -23,7 +23,7 @@ new Vue({
     components: { App }
 })
 
-// router.push('register');
+// router.push('register?ticket=0|FigaeoEinCcW0QsKNLHl8PuxHHkf5xmqgko2wde98TE=&n=123');
 // router.push('infoPatch');
 // router.push('info');
 // router.push('infoEdit');

@@ -115,38 +115,89 @@
     </div>
 </template>
 <script>
-import form from '../assets/js/form'
-import urlApi from '../assets/js/urlApi'
+    import form from '../assets/js/form'
+// import urlApi from '../assets/js/urlApi'
 
 export default {
     data() {
-            return {
-                form: form,
-                attributeList: [],
-                urlApi: urlApi.urlApi
-            }
-        },
-        methods: {
-            getAttributeList() {
-                this.$http.get(this.urlApi.getAttributeList, {
-                    params: {
-                        attributes: 0,
-                        ticket: window.sessionStorage.ticket,
-                        n: window.sessionStorage.n
+        return {
+            form: form,
+            attributeList: [],
+            urlApi: {}
+        }
+    },
+    methods: {
+        getUrlApi() {
+            let url = window.location.href
+            console.log(url)
+            if (url.indexOf('8080') > -1) {
+                    // 获取原生活动详情
+                    this.urlApi.getActivityDetail = '/proApi2/1/activity?method=getDetail&grey=2'
+                        // 获取表单字段列表
+                        this.urlApi.getAttributeList = '/proApi1/1/general?method=getAttributeList&grey=2'
+                        //添加活动素材
+                        this.urlApi.addMaterial = '/proApi1/1/general?method=addMaterial&grey=2'
+                        //修改活动素材
+                        this.urlApi.modifyMaterial = '/proApi1/1/general?method=modifyMaterial&grey=2'
+                        //删除活动素材
+                        this.urlApi.deleteMaterial = '/proApi1/1/general?method=deleteMaterial&grey=2'
+                        // 获取指定素材的详细信息
+                        this.urlApi.getMaterial = '/proApi1/1/general?method=getMaterial&grey=2'
+                        //获取筛选素材列表
+                        this.urlApi.getFilterMaterialList = '/proApi1/1/general?method=getFilterMaterialList&grey=2'
+                        // 上传图片
+                        this.urlApi.upload = '/proApi2/1/picture?method=upload'
+                        // 关注
+                        this.urlApi.follow = '/proApi1/1/user?method=follow&grey=2'
+                        // 发私信
+                        this.urlApi.sendMsg = '/proApi1/1/message?method=sendMsg&grey=1'
+                    } else {
+                    // 获取原生活动详情
+                    this.urlApi.getActivityDetail = 'https://bushd.gpsoo.net/1/activity?method=getDetail'
+                        // 获取表单字段列表
+                        this.urlApi.getAttributeList = 'https://community.gpsoo.net/1/general?method=getAttributeList&grey=1'
+                        //添加活动素材
+                        this.urlApi.addMaterial = 'https://community.gpsoo.net/1/general?method=addMaterial&grey=1'
+                        //修改活动素材
+                        this.urlApi.modifyMaterial = 'https://community.gpsoo.net/1/general?method=modifyMaterial&grey=1'
+                        //删除活动素材
+                        this.urlApi.deleteMaterial = 'https://community.gpsoo.net/1/general?method=deleteMaterial&grey=1'
+                        // 获取指定素材的详细信息
+                        this.urlApi.getMaterial = 'https://community.gpsoo.net/1/general?method=getMaterial&grey=1'
+                        //获取筛选素材列表
+                        this.urlApi.getFilterMaterialList = 'https://community.gpsoo.net/1/general?method=getFilterMaterialList&grey=1'
+                        // 上传图片
+                        if (location.protocol == 'http:') {
+                            this.urlApi.upload = 'http://bushd.gpsoo.net/1/picture?method=upload'
+                        } else if (location.protocol == 'https:') {
+                            this.urlApi.upload = 'https://bushd.gpsoo.net/1/picture?method=upload'
+                        }
+                    // 关注
+                    this.urlApi.follow = 'https://community.gpsoo.net/1/user?method=follow'
+                        // 发私信
+                        this.urlApi.sendMsg = 'https://community.gpsoo.net/1/message?method=sendMsg'
                     }
-                }).then((res) => {
-                    console.log(res, 'getActivity')
-                    if (res.data.errcode === 0) {
-                        let data = res.data.data.attribute_array
-                        this.attributeList = data
-                        this.setAttribute()
-                    }
-                }).catch((err) => {
-                    console.log(err)
-                })
-            },
-            setAttribute() {
-                this.attributeList.forEach((item) => {
+                },
+                getAttributeList() {
+                    this.$http.get(this.urlApi.getAttributeList, {
+                        params: {
+                            attributes: 0,
+                            ticket: window.sessionStorage.ticket,
+                            n: window.sessionStorage.n
+                        }
+                    }).then((res) => {
+                        console.log(res, 'getActivity')
+                        if (res.data.errcode === 0) {
+                            let data = res.data.data.attribute_array
+                            this.attributeList = data
+                            this.setAttribute()
+                        }
+                    }).catch((err) => {
+                        console.log(err)
+                    })
+                },
+                setAttribute() {
+                    this.attributeList.forEach((item) => {
                     if (item.id === '17') { //籍贯
                         this.form.age.id = item.id
                         this.form.age.cName = item.show
@@ -241,64 +292,65 @@ export default {
                         this.form.desc.regx = item.regx
                     }
                 })
-            },
-            getMaterial() {
-                this.$indicator.open()
-                this.$http.get(this.urlApi.getMaterial, {
-                        params: {
-                            id: this.$route.query.id,
-                            activity_id: window.sessionStorage.commId,
-                            ticket: window.sessionStorage.ticket,
-                            n: window.sessionStorage.n
-                        }
-                    })
-                    .then((res) => {
-                        console.log(res, 'getMaterial')
-                        if (res.data.errcode === 0) {
-                            this.$indicator.close()
-                            this.mine = JSON.parse(res.data.data.data)
-                            this.form.age.show = this.mine[10017] == '' ? '不限' : this.mine[10017]
-                            this.form.native.show = this.mine[10004] == '' ? '不限' : this.mine[10034]
-                            this.form.nation.show = this.mine[10003] == '' ? '不限' : this.mine[10003]
-                            this.form.education.show = this.mine[10012] == '' ? '不限' : this.mine[10012]
-                            this.form.constellation.show = this.mine[10002] == '' ? '不限' : this.mine[10002]
-                            this.form.height.show = this.mine[10038] == '' ? '不限' : this.mine[10038]
-                            this.form.weight.show = this.mine[10039] == '' ? '不限' : this.mine[10039]
-                            this.form.workplace.show = this.mine[10009] == '' ? '不限' : this.mine[10009]
-                            this.form.salary.show = this.mine[10033] == '' ? '不限' : this.mine[10033]
-                            this.form.house.show = this.mine[10034] == '' ? '不限' : this.mine[10034]
-                            this.form.car.show = this.mine[10035] == '' ? '不限' : this.mine[10035]
-                            this.form.smoke.show = this.mine[10036] == '' ? '不限' : this.mine[10036]
-                        }
-                    })
-                    .catch(function(err) {
-                        console.log(err)
-                    })
-            },
-            init() {
-                this.getAttributeList()
-                this.getMaterial()
-            }
-        },
-        created() {
-            this.init()
+},
+getMaterial() {
+    this.$indicator.open()
+    this.$http.get(this.urlApi.getMaterial, {
+        params: {
+            id: this.$route.query.id,
+            activity_id: window.sessionStorage.commId,
+            ticket: window.sessionStorage.ticket,
+            n: window.sessionStorage.n
         }
+    })
+    .then((res) => {
+        console.log(res, 'getMaterial')
+        if (res.data.errcode === 0) {
+            this.$indicator.close()
+            this.mine = JSON.parse(res.data.data.data)
+            this.form.age.show = this.mine[10017] == '' ? '不限' : this.mine[10017]
+            this.form.native.show = this.mine[10004] == '' ? '不限' : this.mine[10034]
+            this.form.nation.show = this.mine[10003] == '' ? '不限' : this.mine[10003]
+            this.form.education.show = this.mine[10012] == '' ? '不限' : this.mine[10012]
+            this.form.constellation.show = this.mine[10002] == '' ? '不限' : this.mine[10002]
+            this.form.height.show = this.mine[10038] == '' ? '不限' : this.mine[10038]
+            this.form.weight.show = this.mine[10039] == '' ? '不限' : this.mine[10039]
+            this.form.workplace.show = this.mine[10009] == '' ? '不限' : this.mine[10009]
+            this.form.salary.show = this.mine[10033] == '' ? '不限' : this.mine[10033]
+            this.form.house.show = this.mine[10034] == '' ? '不限' : this.mine[10034]
+            this.form.car.show = this.mine[10035] == '' ? '不限' : this.mine[10035]
+            this.form.smoke.show = this.mine[10036] == '' ? '不限' : this.mine[10036]
+        }
+    })
+    .catch(function(err) {
+        console.log(err)
+    })
+},
+init() {
+    this.getUrlApi()
+    this.getAttributeList()
+    this.getMaterial()
+}
+},
+created() {
+    this.init()
+}
 }
 </script>
 <style lang="scss" scoped>
-@import '../assets/css/common.scss';
-.weui-label {
-    width: auto!important;
-    margin-right: 10px;
-    color: #989898;
-}
-
-.filter-btn {
-    margin-top: 20px;
-    .cancel,
-    .confirm {
-        display: inline-block;
-        padding: 0 20px;
+    @import '../assets/css/common.scss';
+    .weui-label {
+        width: auto!important;
+        margin-right: 10px;
+        color: #989898;
     }
-}
+
+    .filter-btn {
+        margin-top: 20px;
+        .cancel,
+        .confirm {
+            display: inline-block;
+            padding: 0 20px;
+        }
+    }
 </style>

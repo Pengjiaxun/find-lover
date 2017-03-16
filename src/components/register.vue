@@ -54,7 +54,7 @@
 </template>
 <script>
 import form from '../assets/js/form'
-import urlApi from '../assets/js/urlApi'
+// import urlApi from '../assets/js/urlApi'
 import qs from 'qs'
 
 export default {
@@ -70,7 +70,7 @@ export default {
                     infoComplete: false
                 },
                 attributeList: [],
-                urlApi: urlApi.urlApi,
+                urlApi: {},
                 activityDetail: {
                     content: {
                         list: []
@@ -79,6 +79,62 @@ export default {
             }
         },
         methods: {
+            getUrlApi() {
+                let urlApi = {}
+                let url = window.location.href
+                console.log(url)
+                window.sessionStorage.ticket = this.$route.query.ticket
+                window.sessionStorage.n = this.$route.query.n
+                window.sessionStorage.commId = '87206'
+                window.sessionStorage.detailId = '88010'
+                if (url.indexOf('8080') > -1) {
+                    // 获取原生活动详情
+                    this.urlApi.getActivityDetail = '/proApi2/1/activity?method=getDetail&grey=2'
+                        // 获取表单字段列表
+                    this.urlApi.getAttributeList = '/proApi1/1/general?method=getAttributeList&grey=2'
+                        //添加活动素材
+                    this.urlApi.addMaterial = '/proApi1/1/general?method=addMaterial&grey=2'
+                        //修改活动素材
+                    this.urlApi.modifyMaterial = '/proApi1/1/general?method=modifyMaterial&grey=2'
+                        //删除活动素材
+                    this.urlApi.deleteMaterial = '/proApi1/1/general?method=deleteMaterial&grey=2'
+                        // 获取指定素材的详细信息
+                    this.urlApi.getMaterial = '/proApi1/1/general?method=getMaterial&grey=2'
+                        //获取筛选素材列表
+                    this.urlApi.getFilterMaterialList = '/proApi1/1/general?method=getFilterMaterialList&grey=2'
+                        // 上传图片
+                    this.urlApi.upload = '/proApi2/1/picture?method=upload'
+                        // 关注
+                    this.urlApi.follow = '/proApi1/1/user?method=follow&grey=2'
+                        // 发私信
+                    this.urlApi.sendMsg = '/proApi1/1/message?method=sendMsg&grey=1'
+                } else {
+                    // 获取原生活动详情
+                    this.urlApi.getActivityDetail = 'https://bushd.gpsoo.net/1/activity?method=getDetail'
+                        // 获取表单字段列表
+                    this.urlApi.getAttributeList = 'https://community.gpsoo.net/1/general?method=getAttributeList&grey=1'
+                        //添加活动素材
+                    this.urlApi.addMaterial = 'https://community.gpsoo.net/1/general?method=addMaterial&grey=1'
+                        //修改活动素材
+                    this.urlApi.modifyMaterial = 'https://community.gpsoo.net/1/general?method=modifyMaterial&grey=1'
+                        //删除活动素材
+                    this.urlApi.deleteMaterial = 'https://community.gpsoo.net/1/general?method=deleteMaterial&grey=1'
+                        // 获取指定素材的详细信息
+                    this.urlApi.getMaterial = 'https://community.gpsoo.net/1/general?method=getMaterial&grey=1'
+                        //获取筛选素材列表
+                    this.urlApi.getFilterMaterialList = 'https://community.gpsoo.net/1/general?method=getFilterMaterialList&grey=1'
+                        // 上传图片
+                    if (location.protocol == 'http:') {
+                        this.urlApi.upload = 'http://bushd.gpsoo.net/1/picture?method=upload'
+                    } else if (location.protocol == 'https:') {
+                        this.urlApi.upload = 'https://bushd.gpsoo.net/1/picture?method=upload'
+                    }
+                    // 关注
+                    this.urlApi.follow = 'https://community.gpsoo.net/1/user?method=follow'
+                        // 发私信
+                    this.urlApi.sendMsg = 'https://community.gpsoo.net/1/message?method=sendMsg'
+                }
+            },
             getActivityDetail() {
                 this.$indicator.open()
                 this.$http.get(this.urlApi.getActivityDetail, {
@@ -330,6 +386,7 @@ export default {
                 }
             },
             init() {
+                this.getUrlApi()
                 this.getActivityDetail()
                 this.getAttributeList()
                 window.sessionStorage.n && window.sessionStorage.ticket ? this.getMaterial() : ''
@@ -342,67 +399,67 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import '../assets/css/common.scss';
-    .info {
-        padding-bottom: 1.5rem;
-        .banner {
-            height: 11rem;
-            overflow: hidden;
-            margin-bottom: 0.5rem;
+.info {
+    padding-bottom: 1.5rem;
+    .banner {
+        height: 11rem;
+        overflow: hidden;
+        margin-bottom: 0.5rem;
+        img {
+            width: 100%;
+        }
+    }
+    .activity-info {
+        padding-bottom: 0.5rem;
+        width: 95%;
+        margin: 0 auto;
+        border-bottom: 1px solid #d7d7d7;
+        .activity-title {
+            text-align: left;
+            font-size: 1rem;
+            font-weight: bold;
+            border-bottom: 1px solid #d7d7d7;
+        }
+        .message {
+            p {
+                font-size: 0.8rem;
+                margin-top: 0.5rem;
+                background-size: 1rem;
+                background-repeat: no-repeat;
+                padding-left: 1.2rem;
+                height: 1rem;
+                line-height: 1rem;
+                text-align: left;
+            }
+            p:nth-of-type(1) {
+                background-image: url(../assets/img/time.png);
+            }
+            p:nth-of-type(2) {
+                background-image: url(../assets/img/location.png);
+            }
+            p:nth-of-type(3) {
+                background-image: url(../assets/img/man.png);
+            }
+            p:nth-of-type(4) {
+                background-image: url(../assets/img/money.png);
+            }
+        }
+    }
+    #content {
+        width: 95%;
+        margin: 0.5rem auto 0 auto;
+        div {
+            p {
+                margin: 0.2rem 0;
+                font-size: 0.5rem !important;
+            }
             img {
                 width: 100%;
             }
         }
-        .activity-info {
-            padding-bottom: 0.5rem;
-            width: 95%;
-            margin: 0 auto;
-            border-bottom: 1px solid #d7d7d7;
-            .activity-title {
-                text-align: left;
-                font-size: 1rem;
-                font-weight: bold;
-                border-bottom: 1px solid #d7d7d7;
-
-            }
-            .message {
-                p {
-                    font-size: 0.8rem;
-                    margin-top: 0.5rem;
-                    background-size: 1rem;
-                    background-repeat: no-repeat;
-                    padding-left: 1.2rem;
-                    height: 1rem;
-                    line-height: 1rem;
-                    text-align: left;
-                }
-                p:nth-of-type(1) {
-                    background-image: url(../assets/img/time.png);
-                }
-                p:nth-of-type(2) {
-                    background-image: url(../assets/img/location.png);
-                }
-                p:nth-of-type(3) {
-                    background-image: url(../assets/img/man.png);
-                }
-                p:nth-of-type(4) {
-                    background-image: url(../assets/img/money.png);
-                }
-            }
-        }
-        #content {
-            width: 95%;
-            margin: 0.5rem auto 0 auto;
-            div {
-                p {
-                    margin: 0.2rem 0;
-                    font-size: 0.5rem !important;
-                }
-                img {
-                    width: 100%;
-                }
-            }
-        }
     }
+}
+
 .register-form {
     h1 {
         font-size: 1rem;

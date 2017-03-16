@@ -1,3 +1,10 @@
+function GetQueryString(name){
+     var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+     var index = window.location.href.indexOf('register')
+     var r = window.location.href.substr(index+9).match(reg);
+     if(r!=null)return  unescape(r[2]); return null;
+}
+
 function getUrlApi() {
     let urlApi = {}
     let url = window.location.href
@@ -5,6 +12,8 @@ function getUrlApi() {
     // window.sessionStorage.ticket = "0|RHPcpLjEbl6N6o647sZ1F/mBMuR7hOjwrI6YvnitkBQ="
     // window.sessionStorage.ticket = "0|KE442m0QHufK+aLRZb2XNP67Th6rmw0II51LxXvLHd0="
     // window.sessionStorage.n = '123'
+    window.sessionStorage.ticket = GetQueryString('ticket')
+    window.sessionStorage.n = GetQueryString('n')
     window.sessionStorage.commId = '87206'
     window.sessionStorage.detailId = '88010'
     if (url.indexOf('8080') > -1) {
