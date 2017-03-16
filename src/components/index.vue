@@ -20,7 +20,7 @@
                 </div>
             </div>
             <div class="prefer clearfix">
-                <span class="condition fl">择偶条件</span>
+                <span class="condition fl">我的择偶条件</span>
                 <span class="watch" @click="toCondition">
                    查看<i></i>
                </span>
@@ -56,7 +56,7 @@
                     </p>
                 </div>
             </div>
-            <div class="no-more" v-show="more">暂无对象推荐</div>
+            <div class="no-more" v-show="more">暂无更多对象推荐</div>
             <div class="no-more" v-show="loadMoreBtn" @click="loadMore">加载更多</div>
         </div>
         <transition name="slide">
@@ -218,7 +218,7 @@ export default {
                         filterData.push(this.mine[item])
                     }
                 })
-                if (!index || filterKey.length == 0) {
+                if (!index) {
                     this.propose = []
                     this.proposeImg = []
                     this.proposeId = []
@@ -242,7 +242,7 @@ export default {
                                 this.$indicator.close()
                                 let data = res.data.data.materials
                                 if (data.length == 0) {
-                                    this.more = false
+                                    this.more = true
                                     this.loadMoreBtn = false
                                 } else {
                                     this.loadMoreBtn = true
@@ -266,10 +266,13 @@ export default {
                         });
 
                 } else {
+                    this.$indicator.open()
                     this.$http.get(this.urlApi.getFilterMaterialList, {
                         params: {
                             type: window.sessionStorage.type == 1 ? 0 : 1,
-                            activity_id: window.sessionStorage.commId
+                            activity_id: window.sessionStorage.commId,
+                            last_pointer: pos.pointer,
+                            last_id: pos.id
                         }
                     }).then((res) => {
                         if (res.data.errcode === 0) {
@@ -288,6 +291,7 @@ export default {
                                 })
                                 callback && callback(data)
                             } else {
+                                this.more = true
                                 this.loadMoreBtn = false
                             }
                         } else {

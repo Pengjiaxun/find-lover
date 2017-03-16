@@ -622,6 +622,7 @@ export default {
                 '16': this.mine[16],
                 '14': this.mine[14],
                 '17': this.mine[17],
+                '41': this.mine[41],
                 '4': this.mine[4],
                 '3': this.mine[3],
                 '12': this.mine[12],

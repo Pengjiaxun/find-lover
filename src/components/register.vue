@@ -12,7 +12,10 @@
                 <div class="message">
                     <p> {{activityDetail.begtime}} - {{activityDetail.endtime}}</p>
                     <p>{{activityDetail.location}}</p>
-                    <p>已报{{activityDetail.applynum}}人<span style="color:#d7d7d7;">/不限制人数</span></p>
+                    <p>
+                    男生：<span style="color:#999999;">{{commDetail.signedNum[0]}}人</span> ／
+                    女生：<span style="color:#999999;">{{commDetail.signedNum[1]}}人</span>
+                    </p>
                     <p style="color:red;">{{activityDetail.cost}}</p>
                 </div>
             </div>
@@ -36,10 +39,11 @@
                     </mt-picker>
                 </mt-popup>
                 <mt-field :label="form.age.cName" :placeholder="form.age.hint" v-model="form.age.show" type="tel"></mt-field>
+                <mt-field :label="form.idcard.cName" :placeholder="form.idcard.hint" v-model="form.idcard.show" type="tel"></mt-field>
             </form>
-        </div>
-        <div class="footer-btn" v-show="!status.signed">
-            <mt-button type="primary" @click="submit">立即报名</mt-button>
+            <div class="sign" v-show="!status.signed">
+                <mt-button type="primary" @click="submit">立即报名</mt-button>
+            </div>
         </div>
         <div class="footer-btn" v-show="status.signed && !status.infoComplete">
             <mt-button type="primary" @click="toInfoPatch">完善资料</mt-button>
@@ -76,6 +80,11 @@ export default {
                         list: []
                     }
                 },
+                commDetail: {
+                    data: {},
+                    signedNum: [],
+                    attribute_array: []
+                }
             }
         },
         methods: {
@@ -90,6 +99,8 @@ export default {
                 if (url.indexOf('8080') > -1) {
                     // 获取原生活动详情
                     this.urlApi.getActivityDetail = '/proApi2/1/activity?method=getDetail&grey=2'
+                        // 获取通用活动详情
+                    this.urlApi.getActivity = '/proApi1/1/general?method=getActivity&grey=2'
                         // 获取表单字段列表
                     this.urlApi.getAttributeList = '/proApi1/1/general?method=getAttributeList&grey=2'
                         //添加活动素材
@@ -111,6 +122,8 @@ export default {
                 } else {
                     // 获取原生活动详情
                     this.urlApi.getActivityDetail = 'https://bushd.gpsoo.net/1/activity?method=getDetail'
+                        // 获取通用活动详情
+                    this.urlApi.getActivity = 'https://community.gpsoo.net/1/general?method=getActivity&grey=1'
                         // 获取表单字段列表
                     this.urlApi.getAttributeList = 'https://community.gpsoo.net/1/general?method=getAttributeList&grey=1'
                         //添加活动素材
@@ -134,6 +147,30 @@ export default {
                         // 发私信
                     this.urlApi.sendMsg = 'https://community.gpsoo.net/1/message?method=sendMsg'
                 }
+            },
+            getCommDetail() {
+                this.$http.get(this.urlApi.getActivity, {
+                        params: {
+                            id: window.sessionStorage.commId
+                        }
+                    })
+                    .then((res) => {
+                        console.log(res, 'getActivity')
+                        if (res.data.errcode === 0) {
+                            let data = res.data.data
+                            data.data = JSON.parse(data.data)
+                            data.signedNum = data.materialNums.split(',')
+                                // data.attribute_array.forEach((item) => {
+                                //   console.log(item.show, item.id)
+                                // })
+                            this.commDetail = data
+                            // this.setAttribute()
+                            // this.status.ready = true
+                        }
+                    })
+                    .catch((err) => {
+                        console.log(err)
+                    })
             },
             getActivityDetail() {
                 this.$indicator.open()
@@ -223,9 +260,10 @@ export default {
                         this.form.sex.hint = item.hint
                         this.form.sex.regx = item.regx
                         if (this.form.sex.optionsBox.slots[0].values.length == 0) {
-                            this.form.sex.optionsBox.slots[0].values.push('')
                             item.value.forEach((item) => {
-                                this.form.sex.optionsBox.slots[0].values.push(item.show)
+                                if (item.show != '') {
+                                    this.form.sex.optionsBox.slots[0].values.push(item.show)
+                                }
                             })
                         }
                     } else if (item.id === '17') {
@@ -233,6 +271,11 @@ export default {
                         this.form.age.cName = item.show
                         this.form.age.hint = item.hint
                         this.form.age.regx = item.regx
+                    } else if (item.id === '41') {
+                        this.form.idcard.id = item.id
+                        this.form.idcard.cName = item.show
+                        this.form.idcard.hint = item.hint
+                        this.form.idcard.regx = item.regx
                     }
                 })
             },
@@ -256,7 +299,7 @@ export default {
                 window.location.href = 'gmapp:func=gmlogin?id=0'
             },
             toInfoPatch() {
-                this.$router.push('infoPatch')
+                this.$router.replace('infoPatch')
             },
             getMaterial() {
                 this.$http.get(this.urlApi.getMaterial, {
@@ -310,6 +353,13 @@ export default {
                     })
                     return
                 }
+                if (!eval(this.form.idcard.regx).test(this.form.idcard.show)) {
+                    this.$toast({
+                        message: '请输入正确的身份证号码',
+                        duration: 1500
+                    })
+                    return
+                }
                 return true
             },
             submit() {
@@ -322,7 +372,8 @@ export default {
                     let params = {
                         '16': this.form.name.show,
                         '14': this.form.sex.show,
-                        '17': this.form.age.show
+                        '17': this.form.age.show,
+                        '41': this.form.idcard.show
                     }
                     let data = JSON.stringify(params)
                     this.$http.post(this.urlApi.addMaterial, qs.stringify({
@@ -387,6 +438,7 @@ export default {
             },
             init() {
                 this.getUrlApi()
+                this.getCommDetail()
                 this.getActivityDetail()
                 this.getAttributeList()
                 window.sessionStorage.n && window.sessionStorage.ticket ? this.getMaterial() : ''
@@ -452,6 +504,7 @@ export default {
             p {
                 margin: 0.2rem 0;
                 font-size: 0.5rem !important;
+                text-align: left;
             }
             img {
                 width: 100%;
@@ -466,6 +519,14 @@ export default {
         padding: 10px 0;
         margin: 0;
         border-bottom: 1px solid #d7d7d7;
+    }
+    .sign {
+        position: relative;
+        top: 41px;
+        button {
+            width: 100%;
+            border-radius: 0;
+        }
     }
 }
 </style>

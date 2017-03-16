@@ -9,15 +9,16 @@
                         <label class="weui-label">{{form.native.cName}}</label>
                     </div>
                     <div class="weui-cell__bd">
-                        <input class="weui-input" type="text" :placeholder="form.native.hint" readonly :value="form.native.show" @click="form.native.optionsBox.visible = true;" />
+                        <input class="weui-input" type="text" :placeholder="form.native.hint" readonly v-model="form.native.show" @click="form.native.optionsBox.visible = true;" />
                     </div>
                     <i class="arrow-right-big"></i>
                     <mt-popup v-model="form.native.optionsBox.visible" position="bottom" class="options-box">
-                        <p>
-                            <a class="confirm" @click="form.native.optionsBox.visible = false">确认</a>
-                        </p>
                         <mt-picker :slots="form.native.optionsBox.slots" @change="nativeChange
-                    "></mt-picker>
+                    " showToolbar :visible-item-count="3">
+                            <p>
+                                <a class="confirm" @click="form.native.optionsBox.visible = false">确认</a>
+                            </p>
+                        </mt-picker>
                     </mt-popup>
                 </div>
                 <!-- 民族 -->
@@ -30,11 +31,12 @@
                     </div>
                     <i class="arrow-right-big"></i>
                     <mt-popup v-model="form.nation.optionsBox.visible" position="bottom" class="options-box">
-                        <p>
-                            <a class="confirm" @click="form.nation.optionsBox.visible = false">确认</a>
-                        </p>
                         <mt-picker :slots="form.nation.optionsBox.slots" @change="nationChange
-                    "></mt-picker>
+                    " showToolbar :visible-item-count="3">
+                            <p>
+                                <a class="confirm" @click="form.nation.optionsBox.visible = false">确认</a>
+                            </p>
+                        </mt-picker>
                     </mt-popup>
                 </div>
                 <!-- 学历 -->
@@ -47,11 +49,12 @@
                     </div>
                     <i class="arrow-right-big"></i>
                     <mt-popup v-model="form.education.optionsBox.visible" position="bottom" class="options-box">
-                        <p>
-                            <a class="confirm" @click="form.education.optionsBox.visible = false">确认</a>
-                        </p>
                         <mt-picker :slots="form.education.optionsBox.slots" @change="educationChange
-                    "></mt-picker>
+                    " showToolbar :visible-item-count="3">
+                            <p>
+                                <a class="confirm" @click="form.education.optionsBox.visible = false">确认</a>
+                            </p>
+                        </mt-picker>
                     </mt-popup>
                 </div>
                 <!-- 星座 -->
@@ -64,11 +67,11 @@
                     </div>
                     <i class="arrow-right-big"></i>
                     <mt-popup v-model="form.constellation.optionsBox.visible" position="bottom" class="options-box">
-                        <p>
-                            <a class="confirm" @click="form.constellation.optionsBox.visible = false">确认</a>
-                        </p>
-                        <mt-picker :slots="form.constellation.optionsBox.slots" @change="constellationChange
-                    "></mt-picker>
+                        <mt-picker :slots="form.constellation.optionsBox.slots" @change="constellationChange" showToolbar :visible-item-count="3">
+                            <p>
+                                <a class="confirm" @click="form.constellation.optionsBox.visible = false">确认</a>
+                            </p>
+                        </mt-picker>
                     </mt-popup>
                 </div>
                 <!-- 身高 -->
@@ -111,11 +114,12 @@
                     </div>
                     <i class="arrow-right-big"></i>
                     <mt-popup v-model="form.workplace.optionsBox.visible" position="bottom" class="options-box">
-                        <p>
-                            <a class="confirm" @click="form.workplace.optionsBox.visible = false">确认</a>
-                        </p>
                         <mt-picker :slots="form.workplace.optionsBox.slots" @change="workplaceChange
-                    "></mt-picker>
+                    " showToolbar :visible-item-count="3">
+                            <p>
+                                <a class="confirm" @click="form.workplace.optionsBox.visible = false">确认</a>
+                            </p>
+                        </mt-picker>
                     </mt-popup>
                 </div>
                 <!-- 月收入 -->
@@ -128,10 +132,11 @@
                     </div>
                     <i class="arrow-right-big"></i>
                     <mt-popup v-model="form.salary.optionsBox.visible" position="bottom" class="options-box">
-                        <p>
-                            <a class="confirm" @click="form.salary.optionsBox.visible = false">确认</a>
-                        </p>
-                        <mt-picker :slots="form.salary.optionsBox.slots" @change="salaryChange"></mt-picker>
+                        <mt-picker :slots="form.salary.optionsBox.slots" @change="salaryChange" showToolbar :visible-item-count="3">
+                            <p>
+                                <a class="confirm" @click="form.salary.optionsBox.visible = false">确认</a>
+                            </p>
+                        </mt-picker>
                     </mt-popup>
                 </div>
                 <!-- 住房状况 -->
@@ -144,11 +149,12 @@
                     </div>
                     <i class="arrow-right-big"></i>
                     <mt-popup v-model="form.house.optionsBox.visible" position="bottom" class="options-box">
-                        <p>
-                            <a class="confirm" @click="form.house.optionsBox.visible = false">确认</a>
-                        </p>
                         <mt-picker :slots="form.house.optionsBox.slots" @change="houseChange
-                        "></mt-picker>
+                        " showToolbar :visible-item-count="3">
+                            <p>
+                                <a class="confirm" @click="form.house.optionsBox.visible = false">确认</a>
+                            </p>
+                        </mt-picker>
                     </mt-popup>
                 </div>
                 <!-- 购车情况 -->
@@ -161,11 +167,12 @@
                     </div>
                     <i class="arrow-right-big"></i>
                     <mt-popup v-model="form.car.optionsBox.visible" position="bottom" class="options-box">
-                        <p>
-                            <a class="confirm" @click="form.car.optionsBox.visible = false">确认</a>
-                        </p>
                         <mt-picker :slots="form.car.optionsBox.slots" @change="carChange
-                        " :visibleItemCount="3"></mt-picker>
+                        " showToolbar :visible-item-count="3">
+                            <p>
+                                <a class="confirm" @click="form.car.optionsBox.visible = false">确认</a>
+                            </p>
+                        </mt-picker>
                     </mt-popup>
                 </div>
                 <!-- 烟酒习惯 -->
@@ -178,11 +185,12 @@
                     </div>
                     <i class="arrow-right-big"></i>
                     <mt-popup v-model="form.smoke.optionsBox.visible" position="bottom" class="options-box">
-                        <p>
-                            <a class="confirm" @click="form.smoke.optionsBox.visible = false">确认</a>
-                        </p>
                         <mt-picker :slots="form.smoke.optionsBox.slots" @change="smokeChange
-                        "></mt-picker>
+                        " showToolbar :visible-item-count="3">
+                            <p>
+                                <a class="confirm" @click="form.smoke.optionsBox.visible = false">确认</a>
+                            </p>
+                        </mt-picker>
                     </mt-popup>
                 </div>
                 <h1 class="title">其他</h1>
@@ -212,10 +220,13 @@
                     </div>
                 </div>
             </div>
-            <div class="footer-btn">
-                <mt-button type="primary" @click="submit">提交</mt-button>
-            </div>
         </form>
+        <div class="footer-btn">
+            <mt-button type="primary" @click="submit" v-show="!homeBtn">提交</mt-button>
+        </div>
+        <div class="footer-btn">
+            <mt-button type="primary" @click="toHomePage" v-show="homeBtn">进入我的主页</mt-button>
+        </div>
     </div>
 </template>
 <script>
@@ -247,7 +258,9 @@ export default {
                 name: '',
                 age: '',
                 sex: '',
-                type: 0
+                idcard: '',
+                type: 0,
+                homeBtn: false
             }
         },
         methods: {
@@ -342,7 +355,6 @@ export default {
                         this.form.education.cName = item.show
                         this.form.education.hint = item.hint
                         this.form.education.regx = item.regx
-                        this.form.education.optionsBox.slots[0].values.push('')
                         item.value.forEach((item) => {
                             this.form.education.optionsBox.slots[0].values.push(item.show)
                         })
@@ -376,7 +388,6 @@ export default {
                         this.form.salary.cName = item.show
                         this.form.salary.hint = item.hint
                         this.form.salary.regx = item.regx
-                        this.form.salary.optionsBox.slots[0].values.push('')
                         item.value.forEach((item) => {
                             this.form.salary.optionsBox.slots[0].values.push(item.show)
                         })
@@ -386,7 +397,9 @@ export default {
                         this.form.house.hint = item.hint
                         this.form.house.regx = item.regx
                         item.value.forEach((item) => {
-                            this.form.house.optionsBox.slots[0].values.push(item.show)
+                            if (item.show != '') {
+                                this.form.house.optionsBox.slots[0].values.push(item.show)
+                            }
                         })
                     } else if (item.id === '35') { //购车状况
                         this.form.car.id = item.id
@@ -394,7 +407,9 @@ export default {
                         this.form.car.hint = item.hint
                         this.form.car.regx = item.regx
                         item.value.forEach((item) => {
-                            this.form.car.optionsBox.slots[0].values.push(item.show)
+                            if (item.show != '') {
+                                this.form.car.optionsBox.slots[0].values.push(item.show)
+                            }
                         })
                     } else if (item.id === '36') { //烟酒习惯
                         this.form.smoke.id = item.id
@@ -402,7 +417,9 @@ export default {
                         this.form.smoke.hint = item.hint
                         this.form.smoke.regx = item.regx
                         item.value.forEach((item) => {
-                            this.form.smoke.optionsBox.slots[0].values.push(item.show)
+                            if (item.show != '') {
+                                this.form.smoke.optionsBox.slots[0].values.push(item.show)
+                            }
                         })
                     } else if (item.id === '37') { //照片
                         this.form.pic.id = item.id
@@ -618,6 +635,9 @@ export default {
                     })
                     .always(function() {});
             },
+            toHomePage() {
+                this.$router.replace('index')
+            },
             getMaterial() {
                 this.$http.get(this.urlApi.getMaterial, {
                         params: {
@@ -637,6 +657,7 @@ export default {
                             this.name = data[16]
                             this.sex = data[14]
                             this.age = data[17]
+                            this.idcard = data[41]
                             window.sessionStorage.type = this.type
                         }
                     })
@@ -645,103 +666,110 @@ export default {
                     })
             },
             verify() {
+                if (window.sessionStorage.ticket === undefined) {
+                    this.$toast({
+                        message: '您尚未登录，请返回APP主界面中，“我的”界面进行登陆',
+                        duration: 3000
+                    })
+                    return
+                }
                 if (!eval(this.form.native.regx).test(this.form.native.show)) {
                     this.$toast({
                         message: '请选择籍贯！',
                         duration: 1500
                     })
-                    return
+                    return false
                 }
                 if (!eval(this.form.nation.regx).test(this.form.nation.show)) {
                     this.$toast({
                         message: '请选择民族！',
                         duration: 1500
                     })
-                    return
+                    return false
                 }
                 if (!eval(this.form.education.regx).test(this.form.education.show)) {
                     this.$toast({
                         message: '请选择学历！',
                         duration: 1500
                     })
-                    return
+                    return false
                 }
                 if (!eval(this.form.constellation.regx).test(this.form.constellation.show)) {
                     this.$toast({
                         message: '请选择星座！',
                         duration: 1500
                     })
-                    return
+                    return false
                 }
                 if (!eval(this.form.height.regx).test(this.form.height.show)) {
                     this.$toast({
                         message: '请输入身高！',
                         duration: 1500
                     })
-                    return
+                    return false
                 }
                 if (!eval(this.form.weight.regx).test(this.form.weight.show)) {
                     this.$toast({
                         message: '请输入体重！',
                         duration: 1500
                     })
-                    return
+                    return false
                 }
                 if (!eval(this.form.occupation.regx).test(this.form.occupation.show)) {
                     this.$toast({
                         message: '请输入职业！',
                         duration: 1500
                     })
-                    return
+                    return false
                 }
                 if (!eval(this.form.workplace.regx).test(this.form.workplace.show)) {
                     this.$toast({
                         message: '请选择工作地点！',
                         duration: 1500
                     })
-                    return
+                    return false
                 }
                 if (!eval(this.form.salary.regx).test(this.form.salary.show)) {
                     this.$toast({
                         message: '请选择月收入！',
                         duration: 1500
                     })
-                    return
+                    return false
                 }
                 if (!eval(this.form.house.regx).test(this.form.house.show)) {
                     this.$toast({
                         message: '请选择住房状况！',
                         duration: 1500
                     })
-                    return
+                    return false
                 }
                 if (!eval(this.form.car.regx).test(this.form.car.show)) {
                     this.$toast({
                         message: '请选择购车状况！',
                         duration: 1500
                     })
-                    return
+                    return false
                 }
                 if (!eval(this.form.smoke.regx).test(this.form.smoke.show)) {
                     this.$toast({
                         message: '请选择烟酒习惯！',
                         duration: 1500
                     })
-                    return
+                    return false
                 }
                 if (this.baseSrc.length == 0) {
                     this.$toast({
                         message: '请上传个人照片',
                         duration: 1500
                     })
-                    return
+                    return false
                 }
                 if (!eval(this.form.desc.regx).test(this.form.desc.show)) {
                     this.$toast({
                         message: '请输入自我描述！',
                         duration: 1500
                     })
-                    return
+                    return false
                 }
                 return true
             },
@@ -751,6 +779,7 @@ export default {
                         '16': this.name,
                         '14': this.sex,
                         '17': this.age,
+                        '41': this.idcard,
                         '4': this.form.native.show,
                         '3': this.form.nation.show,
                         '12': this.form.education.show,
@@ -801,16 +830,19 @@ export default {
                             data: data
                         }))
                         .then((res) => {
-                            console.log(res, 'addMaterial')
+                            console.log(res, 'modifyMaterial')
                             this.$indicator.close()
                             let data = res.data
                             if (data.errcode === 0) {
-                                this.$indicator.close()
+                                this.getMaterial()
                                 this.$toast({
                                     message: '资料已保存！',
                                     duration: 1500
                                 })
-                                setTimeout(this.$router.push('index'), 3000)
+                                this.homeBtn = true
+                                    // this.$router.push('index')
+                            } else {
+                                this.homeBtn = false
                             }
                         })
                         .catch((err) => {
@@ -833,7 +865,7 @@ export default {
             }
         },
         created() {
-            this.init()
+            window.sessionStorage.n === undefined ? window.location.href = 'https://bussem.gpsoo.net/coomix-love/#/register' : this.init()
         }
 }
 </script>

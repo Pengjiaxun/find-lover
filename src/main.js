@@ -12,7 +12,6 @@ window.Swiper = Swiper
 import axios from 'axios'
 Vue.prototype.$http = axios
 Vue.use(MintUI)
-
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
@@ -23,7 +22,7 @@ new Vue({
     components: { App }
 })
 
-// router.push('register?ticket=0|FigaeoEinCcW0QsKNLHl8PuxHHkf5xmqgko2wde98TE=&n=123');
+// router.push('register?ticket=0|MttnL6AZdLD6ej328xMokKRlIy4IBl8fCQ/B9RoepYI=&n=123');
 // router.push('infoPatch');
 // router.push('info');
 // router.push('infoEdit');

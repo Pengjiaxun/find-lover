@@ -47,35 +47,43 @@
             <form action="">
                 <mt-field :label="form.native.cName" :placeholder="form.native.hint" class="grey-label" v-model="form.native.show" readonly @click.native="form.native.optionsBox.visible = true"></mt-field>
                 <mt-popup v-model="form.native.optionsBox.visible" position="bottom" class="options-box">
-                    <p>
+                    
+                    <mt-picker :slots="form.native.optionsBox.slots" @change="nativeChange
+                    " showToolbar :visible-item-count="3">
+                        <p>
                         <a class="confirm" @click="form.native.optionsBox.visible = false">确认</a>
                     </p>
-                    <mt-picker :slots="form.native.optionsBox.slots" @change="nativeChange
-                    "></mt-picker>
+                    </mt-picker>
                 </mt-popup>
                 <mt-field :label="form.nation.cName" :placeholder="form.nation.hint" class="grey-label" v-model="form.nation.show" readonly @click.native="form.nation.optionsBox.visible = true"></mt-field>
                 <mt-popup v-model="form.nation.optionsBox.visible" position="bottom" class="options-box">
-                    <p>
+
+                    <mt-picker :slots="form.nation.optionsBox.slots" @change="nationChange
+                    " showToolbar :visible-item-count="3">
+                                            <p>
                         <a class="confirm" @click="form.nation.optionsBox.visible = false">确认</a>
                     </p>
-                    <mt-picker :slots="form.nation.optionsBox.slots" @change="nationChange
-                    "></mt-picker>
+                    </mt-picker>
                 </mt-popup>
                 <mt-field :label="form.education.cName" :placeholder="form.education.hint" class="grey-label" v-model="form.education.show" readonly @click.native="form.education.optionsBox.visible = true"></mt-field>
                 <mt-popup v-model="form.education.optionsBox.visible" position="bottom" class="options-box">
-                    <p>
+
+                    <mt-picker :slots="form.education.optionsBox.slots" @change="educationChange
+                    " showToolbar :visible-item-count="3">
+                                            <p>
                         <a class="confirm" @click="form.education.optionsBox.visible = false">确认</a>
                     </p>
-                    <mt-picker :slots="form.education.optionsBox.slots" @change="educationChange
-                    "></mt-picker>
+                    </mt-picker>
                 </mt-popup>
                 <mt-field :label="form.constellation.cName" :placeholder="form.constellation.hint" class="grey-label" v-model="form.constellation.show" readonly @click.native="form.constellation.optionsBox.visible = true"></mt-field>
                 <mt-popup v-model="form.constellation.optionsBox.visible" position="bottom" class="options-box">
-                    <p>
+                    
+                    <mt-picker :slots="form.constellation.optionsBox.slots" @change="constellationChange
+                    " showToolbar :visible-item-count="3">
+                        <p>
                         <a class="confirm" @click="form.constellation.optionsBox.visible = false">确认</a>
                     </p>
-                    <mt-picker :slots="form.constellation.optionsBox.slots" @change="constellationChange
-                    "></mt-picker>
+                    </mt-picker>
                 </mt-popup>
                 <mt-field :label="form.height.cName" :placeholder="form.height.hint" class="grey-label" v-model="form.height.show"></mt-field>
                 <mt-field :label="form.weight.cName" :placeholder="form.weight.hint" class="grey-label" v-model="form.weight.show"></mt-field>
@@ -85,42 +93,52 @@
                 <mt-field :label="form.occupation.cName" :placeholder="form.occupation.hint" class="grey-label" v-model="form.occupation.show"></mt-field>
                 <mt-field :label="form.workplace.cName" :placeholder="form.workplace.hint" class="grey-label" v-model="form.workplace.show" readonly @click.native="form.workplace.optionsBox.visible = true"></mt-field>
                 <mt-popup v-model="form.workplace.optionsBox.visible" position="bottom" class="options-box">
-                    <p>
+
+                    <mt-picker :slots="form.workplace.optionsBox.slots" @change="workplaceChange
+                    " showToolbar :visible-item-count="3">
+                                            <p>
                         <a class="confirm" @click="form.workplace.optionsBox.visible = false">确认</a>
                     </p>
-                    <mt-picker :slots="form.workplace.optionsBox.slots" @change="workplaceChange
-                    "></mt-picker>
+                    </mt-picker>
                 </mt-popup>
                 <mt-field :label="form.salary.cName" :placeholder="form.salary.hint" class="grey-label" v-model="form.salary.show" readonly @click.native="form.salary.optionsBox.visible = true"></mt-field>
                 <mt-popup v-model="form.salary.optionsBox.visible" position="bottom" class="options-box">
-                    <p>
+
+                    <mt-picker :slots="form.salary.optionsBox.slots" @change="salaryChange" showToolbar :visible-item-count="3">
+                                            <p>
                         <a class="confirm" @click="form.salary.optionsBox.visible = false">确认</a>
                     </p>
-                    <mt-picker :slots="form.salary.optionsBox.slots" @change="salaryChange"></mt-picker>
+                    </mt-picker>
                 </mt-popup>
                 <mt-field :label="form.house.cName" :placeholder="form.house.hint" class="grey-label" v-model="form.house.show" readonly @click.native="form.house.optionsBox.visible = true"></mt-field>
                 <mt-popup v-model="form.house.optionsBox.visible" position="bottom" class="options-box">
-                    <p>
+
+                    <mt-picker :slots="form.house.optionsBox.slots" @change="houseChange
+                        " showToolbar :visible-item-count="3">
+                                                <p>
                         <a class="confirm" @click="form.house.optionsBox.visible = false">确认</a>
                     </p>
-                    <mt-picker :slots="form.house.optionsBox.slots" @change="houseChange
-                        "></mt-picker>
+                        </mt-picker>
                 </mt-popup>
                 <mt-field :label="form.car.cName" :placeholder="form.car.hint" class="grey-label" v-model="form.car.show" readonly @click.native="form.car.optionsBox.visible = true"></mt-field>
                 <mt-popup v-model="form.car.optionsBox.visible" position="bottom" class="options-box">
-                    <p>
+
+                    <mt-picker :slots="form.car.optionsBox.slots" @change="carChange
+                        " :visibleItemCount="3" showToolbar >
+                                                <p>
                         <a class="confirm" @click="form.car.optionsBox.visible = false">确认</a>
                     </p>
-                    <mt-picker :slots="form.car.optionsBox.slots" @change="carChange
-                        " :visibleItemCount="3"></mt-picker>
+                        </mt-picker>
                 </mt-popup>
                 <mt-field :label="form.smoke.cName" :placeholder="form.smoke.hint" class="grey-label" v-model="form.smoke.show" readonly @click.native="form.smoke.optionsBox.visible = true"></mt-field>
                 <mt-popup v-model="form.smoke.optionsBox.visible" position="bottom" class="options-box">
-                    <p>
+
+                    <mt-picker :slots="form.smoke.optionsBox.slots" @change="smokeChange
+                        " showToolbar :visible-item-count="3">
+                                                <p>
                         <a class="confirm" @click="form.smoke.optionsBox.visible = false">确认</a>
                     </p>
-                    <mt-picker :slots="form.smoke.optionsBox.slots" @change="smokeChange
-                        "></mt-picker>
+                        </mt-picker>
                 </mt-popup>
             </form>
             <div class="cut-line"></div>
@@ -183,7 +201,8 @@ export default {
                 imgCount: 0,
                 name: '',
                 age: '',
-                sex: ''
+                sex: '',
+                idcard:''
             }
         },
         methods: {
@@ -281,9 +300,10 @@ export default {
                         this.form.education.cName = item.show
                         this.form.education.hint = item.hint
                         this.form.education.regx = item.regx
-                        this.form.education.optionsBox.slots[0].values.push('')
                         item.value.forEach((item) => {
-                            this.form.education.optionsBox.slots[0].values.push(item.show)
+                            if(item.show != ''){
+                                this.form.education.optionsBox.slots[0].values.push(item.show)
+                            }
                         })
                     } else if (item.id === '2') { //星座
                         this.form.constellation.id = item.id
@@ -315,9 +335,10 @@ export default {
                         this.form.salary.cName = item.show
                         this.form.salary.hint = item.hint
                         this.form.salary.regx = item.regx
-                        this.form.salary.optionsBox.slots[0].values.push('')
                         item.value.forEach((item) => {
-                            this.form.salary.optionsBox.slots[0].values.push(item.show)
+                            if(item.show != ''){
+                                this.form.salary.optionsBox.slots[0].values.push(item.show)
+                            }
                         })
                     } else if (item.id === '34') { //住房状况
                         this.form.house.id = item.id
@@ -325,7 +346,9 @@ export default {
                         this.form.house.hint = item.hint
                         this.form.house.regx = item.regx
                         item.value.forEach((item) => {
-                            this.form.house.optionsBox.slots[0].values.push(item.show)
+                            if(item.show != ''){
+                                this.form.house.optionsBox.slots[0].values.push(item.show)
+                            }
                         })
                     } else if (item.id === '35') { //购车状况
                         this.form.car.id = item.id
@@ -333,7 +356,9 @@ export default {
                         this.form.car.hint = item.hint
                         this.form.car.regx = item.regx
                         item.value.forEach((item) => {
-                            this.form.car.optionsBox.slots[0].values.push(item.show)
+                            if(item.show != ''){
+                                this.form.car.optionsBox.slots[0].values.push(item.show)
+                            }
                         })
                     } else if (item.id === '36') { //烟酒习惯
                         this.form.smoke.id = item.id
@@ -341,7 +366,9 @@ export default {
                         this.form.smoke.hint = item.hint
                         this.form.smoke.regx = item.regx
                         item.value.forEach((item) => {
-                            this.form.smoke.optionsBox.slots[0].values.push(item.show)
+                            if(item.show != ''){
+                                this.form.smoke.optionsBox.slots[0].values.push(item.show)
+                            }
                         })
                     } else if (item.id === '37') { //照片
                         this.form.pic.id = item.id
@@ -515,6 +542,7 @@ export default {
                             this.name = this.mine[16]
                             this.sex = this.mine[14]
                             this.age = this.mine[17]
+                            this.idcard = this.mine[41]
                             this.form.native.show = this.mine[4]
                             this.form.nation.show = this.mine[3]
                             this.form.education.show = this.mine[12]
@@ -610,6 +638,7 @@ export default {
                     '16': this.name,
                     '14': this.sex,
                     '17': this.age,
+                    '41': this.idcard,
                     '4': this.form.native.show,
                     '3': this.form.nation.show,
                     '12': this.form.education.show,

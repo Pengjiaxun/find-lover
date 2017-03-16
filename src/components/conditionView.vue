@@ -8,7 +8,7 @@
                         <label class="weui-label">{{form.age.cName}}:</label>
                     </div>
                     <div class="weui-cell__bd">
-                        <input class="weui-input" type="text" readonly :value="form.age.show+'岁'" />
+                        <input class="weui-input" type="text" readonly :value="form.age.show == '不限' ? form.age.show : form.age.show + '岁'" />
                     </div>
                 </div>
                 <!-- 籍贯 -->
@@ -53,7 +53,7 @@
                         <label class="weui-label">{{form.height.cName}}:</label>
                     </div>
                     <div class="weui-cell__bd">
-                        <input class="weui-input" :value="form.height.show+'cm'" type="tel" readonly />
+                        <input class="weui-input" :value="form.height.show == '不限' ? form.height.show : form.height.show + 'cm'" type="tel" readonly />
                     </div>
                 </div>
                 <!-- 体重 -->
@@ -62,7 +62,7 @@
                         <label class="weui-label">{{form.weight.cName}}:</label>
                     </div>
                     <div class="weui-cell__bd">
-                        <input class="weui-input" :value="form.weight.show+'kg'" type="tel" readonly />
+                        <input class="weui-input" :value="form.weight.show == '不限' ? form.weight.show : form.weight.show+'kg'" type="tel" readonly />
                     </div>
                 </div>
                 <!-- 工作地点 -->

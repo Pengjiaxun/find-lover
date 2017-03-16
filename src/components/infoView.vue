@@ -8,7 +8,7 @@
                 <span class="age">{{mine[17]}}岁</span>
             </p>
         </header>
-        <h1 class="title">个人照片</h1>
+        <h1 class="title self-pic">个人照片</h1>
         <div class="pics">
             <div class="swiper-container">
                 <div class="swiper-wrapper">
@@ -28,8 +28,9 @@
             <p class="return-tips">轻触返回</p>
             <div class="swiper-pagination swiper-pagination-white"></div>
         </div>
-        <h1 class="title">自我描述</h1>
+        <h1 class="title self-desc">自我描述</h1>
         <p class="desc" v-show="mine[23]">{{mine[23]}}</p>
+        <p class="desc" v-show="!mine[23]">这个人很懒，什么都没留下。</p>
         <div class="cut-line"></div>
         <h1 class="title ta-condition">
             <span class="fl">择偶条件</span>
@@ -278,7 +279,7 @@ export default {
                 })
             },
             sendMsg() {
-                this.$http.post(this.urlApi.sendMsg + "&revid=" + window.sessionStorage.uid + "&ticket=" + window.sessionStorage.ticket + "&n=" + window.sessionStorage.n + "&content=你好，我在#酷米客找对象#活动中看到你的资料，对你很感兴趣，方便聊一聊吗？").then((res) => {
+                this.$http.post(this.urlApi.sendMsg + "&revid=" + window.sessionStorage.uid + "&ticket=" + window.sessionStorage.ticket + "&n=" + window.sessionStorage.n + "&content=你好，我在酷米客找对象活动中看到你的资料，对你很感兴趣，方便聊一聊吗？").then((res) => {
                     console.log(res, 'sendMsg')
                     if (res.data.errcode === 0) {
                         this.$toast({
@@ -352,6 +353,7 @@ export default {
             height: 3.5rem;
             border-radius: 50%;
             border: 2px solid #fff;
+            vertical-align: bottom;
         }
         .name {
             font-size: 0.8rem;
@@ -387,6 +389,18 @@ export default {
     .pics {
         background-color: #fff;
         padding: 10px;
+        position: relative;
+        &:after{
+            display: block;
+            position: absolute;
+            left:0;
+            bottom:0;
+            width:100%;
+            border-bottom:1px solid #d9d9d9;
+            content:' ';
+            -webkit-transform:scaleY(0.6);
+            transform:scaleY(0.6);
+        }
         .swiper-container {
             width: 100%;
             // margin: 20px auto;
@@ -475,11 +489,37 @@ export default {
             z-index: 1001
         }
     }
+    .self-desc,.self-pic{
+        position: relative;
+        &:after{
+            display: block;
+            position: absolute;
+            left:0;
+            bottom:0;
+            width:100%;
+            border-bottom:1px solid #d9d9d9;
+            content:' ';
+            -webkit-transform:scaleY(0.6);
+            transform:scaleY(0.6);
+        }
+    }
     .desc {
         min-height: 100px;
         padding: 8px 10px;
         font-size: 0.8rem;
         text-align: left;
+        position: relative;
+        &:after{
+            display: block;
+            position: absolute;
+            left:0;
+            bottom:0;
+            width:100%;
+            border-bottom:1px solid #d9d9d9;
+            content:' ';
+            -webkit-transform:scaleY(0.6);
+            transform:scaleY(0.6);
+        }
     }
     .ta-condition {
         text-align: right;

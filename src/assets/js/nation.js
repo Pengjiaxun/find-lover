@@ -1,7 +1,4 @@
 module.exports = [{
-    "id": "57",
-    "name": ""
-}, {
     "id": "01",
     "name": "汉族"
 }, {

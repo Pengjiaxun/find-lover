@@ -1,6 +1,4 @@
 module.exports = [{
-	"name": ""
-},{
     "name": "白羊座"
 }, {
     "name": "金牛座"
@@ -21,7 +19,7 @@ module.exports = [{
 }, {
     "name": "摩羯座"
 }, {
-    "name": "水平座"
+    "name": "水瓶座"
 }, {
     "name": "双鱼座"
 }]

@@ -36,6 +36,9 @@ export default {
 .options-box {
     width: 100%;
 }
+.picker{
+    position: relative;
+}
 
 .picker-items {
     background-color: #f0eff5;
