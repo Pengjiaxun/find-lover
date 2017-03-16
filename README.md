@@ -1,6 +1,6 @@
 # love
 
-> I wanna find a lover.
+> “找对象”活动的移动html页面，具有报名，查看个人／他人主页，筛选用户信息，编辑个人信息等功能。
 
 ## Build Setup
 
